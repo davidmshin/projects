@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- Calculator purely made in Javascript -->
+		<title> JavaScript Calculator </title>
+	</head>
+
+
+	<body> 
+	<!-- First Input Number -->
+	First Number <input type = "number" id = "n1" />
+
+	<br>
+	<form ="">
+	<input type="radio" name="operator" id="+">+<br>
+	<input type="radio" name="operator" id="-">-<br>
+	<input type="radio" name="operator" id="*">*<br>
+	<input type="radio" name="operator" id="/">/<br>
+	</form>
+
+	<!-- Second Input Number -->
+	Second Number <input type = "number" id = "n2" />
+
+	<p id="demo2">Result?? </p>
+	</body>
+
+	<script type="text/javascript">
+
+	// Operators Fields
+	var x = document.getElementById("+");
+	var y = document.getElementById("-");
+	var z = document.getElementById("*");
+	var a = document.getElementById("/");
+	
+
+	// See if a operator is checked, s.t such operator subsequently calculates
+	function radioPlus() {
+		x.checked = true;
+	}
+	function radioSubtract() {
+		y.checked = true;
+	}
+	function radioMultiply() {
+		z.checked = true;
+	}
+	function radioDivide() {
+		a.checked = true;
+	}
+
+	// Operator Functions
+ 	function sum() { 
+    	var fn, ln, result; 
+    	fn = parseInt(document.getElementById("n1").value, 10);
+    	ln = parseInt(document.getElementById("n2").value, 10);
+    	result =  (fn+ln); 
+    	document.getElementById("demo2").innerHTML = result; 
+	}
+
+	function subtract() {
+ 		var fn, ln, result;
+    	fn = parseInt(document.getElementById("n1").value, 10);
+    	ln = parseInt(document.getElementById("n2").value, 10);
+    	result =  (fn-ln); 
+    	document.getElementById("demo2").innerHTML = result;
+ 	}
+
+ 	function multiply() {
+ 		var fn, ln, result;
+    	fn = parseInt(document.getElementById("n1").value, 10);
+    	ln = parseInt(document.getElementById("n2").value, 10);
+    	result =  (fn*ln); 
+    	document.getElementById("demo2").innerHTML = result;
+ 	}
+  	function divide() {
+ 		var fn, ln, result;
+    	fn = parseInt(document.getElementById("n1").value, 10);
+    	ln = parseInt(document.getElementById("n2").value, 10);
+    	if(ln==0) {
+    		result = "Cannot be divided by zero! Please put appropriate value!"
+    	}
+    	else {
+    		result =  (fn/ln); 
+    	}	
+    	document.getElementById("demo2").innerHTML = result;
+ 	}
+
+
+ 	// Calculate Function to act accordingly to the selected radio button
+ 	function calculate() {
+ 		if(Boolean(x.checked)){
+ 			sum();
+ 		}
+ 		else if(Boolean(y.checked)) {
+ 			subtract();
+ 		}
+ 		else if(Boolean(z.checked)) {
+ 			multiply();
+ 		}
+ 		else if(Boolean(a.checked)) {
+ 			divide();
+ 		}
+ 	}
+
+
+ 	// Get Result
+	//document.getElementById("calculate").addEventListener("click", calculate);
+
+	document.getElementById("n1").addEventListener("change", calculate);
+	document.getElementById("n2").addEventListener("change", calculate);
+
+
+	</script>
+
+</html>
+
