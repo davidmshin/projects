@@ -1,155 +1,164 @@
-import java.util.*;
+import java.util.ArrayList;
+
 
 
 public class ClosestPairDC {
-    
-    public final static double INF = java.lang.Double.POSITIVE_INFINITY;
-    
-    public static XYPoint p1;
-    public static XYPoint p2;
-    //
-    // findClosestPair()
-    //
-    // Given a collection of nPoints points, find and ***print***
-    //  * the closest pair of points
-    //  * the distance between them
-    // in the form "DC (x1, y1) (x2, y2) distance"
-    //
-    
-    // INPUTS:
-    //  - points sorted in nondecreasing order by X coordinate
-    //  - points sorted in nondecreasing order by Y coordinate
-    //
-    
-    public static void findClosestPair(XYPoint pointsByX[], 
-				       XYPoint pointsByY[],
-				       boolean print)
-    {
-    	int nPoints = pointsByX.length;
-    	
-    	double distance= findClosestPair(pointsByX, pointsByY, nPoints);
-    	
-    	
-    	if (print)
-	    System.out.println("DC " + "(" + p1.x+", "+p1.y+") "+"("+p2.x+", "+p2.y+") "+distance);
-    }
-    
-  
-    
-    public static double findClosestPair(XYPoint pointsByX[], XYPoint pointsByY[], int n) {
-    	int nPoints = pointsByX.length;
-    	double minDist = INF;
-    	double distL = INF;
-    	double distR = INF;
-    	
-    	if(nPoints==1) {
-    		return INF;
-    	} if(nPoints==2) {
-    		return pointsByX[0].dist(pointsByX[1]);
-    	} else {
-//    		int mid = (int)Math.ceil(nPoints/2) -1;
-    		int mid = nPoints/2;
-    		
-    		
-    		XYPoint[] XL = new XYPoint[mid];
-    		XYPoint[] XR = new XYPoint[nPoints-mid];
-    		
-    		// Sort XL in nondecreasing order of X Coord
-    		for(int i=0; i<mid; i++) {
-    			XL[i] = pointsByX[i];
-    		}
-    		
-    		for(int j=0; j<nPoints-mid; j++) {
-    			XR[j] = pointsByX[j+mid];
-    		}
-    	
-    		XYPoint [] YL = new XYPoint[mid];
-    		XYPoint [] YR = new XYPoint[nPoints-mid];
-    		
-    		// Just need to sort YL, and YR, accordingly, each to the XL and XR
-    		int count = 0;
-    		for(int i=0; i<nPoints; i++){
-    			if(count < YL.length){
-    				if(pointsByY[i].isLeftOf(pointsByX[mid])) {
-    					YL[count] = pointsByY[i];
-    					count++;
-    				}
-    			}
-    			else {
-    				break;
-    			}
-    		}
-    		
-    		count = 0;
-    		for(int i=0; i<nPoints; i++) {
-    			if(count < YR.length) {
-    				if(!pointsByY[i].isLeftOf(pointsByX[mid])) {
-    					YR[count] = pointsByY[i];
-    					count++;
-    				}
-    			}
-    			else {
-    				break;
-    			}
-    		}
-    		
-    		distL = findClosestPair(XL, YL, nPoints);
-    		distR = findClosestPair(XR, YR, nPoints);
-    		
-    		
-    		
-    		return combine(pointsByY, pointsByX, pointsByX[mid], n, Math.min(distL, distR));
-    	}
-    }
-    
-    public static double combine(XYPoint pointsByY[], XYPoint pointsByX[], XYPoint midPoint, int n, double lrDist) {
-    	
-    	int nPoints = pointsByY.length;
-    	int mid = pointsByY.length/2;
-    	
-    	// Using ArrayList to conveniently create yStrip, while not disturbing the running time
-    	// It supports constant time access and amortized constant time append!
-    	ArrayList<XYPoint> yS = new ArrayList<XYPoint>();
-    	int x = pointsByX[mid].x;
-    	
-    	//XYPoint [] yStrip = new XYPoint[0];
-    	//Construct yStrip, in increasing y order, of all points p in ptsByY, s.t |p.x - midPoint.x| < lrDist
-    	
-    	//Get all such p points in yStrip
-    	for(int i=0; i<nPoints; i++) {
-    		if(Math.abs(x - pointsByY[mid].x ) <= lrDist ) {
-    			yS.add(pointsByY[i]);
-    		}  		
-    	}
-    	
-    	
-    	
-    	//Convert yS ArrayList to array yStrip
-    	XYPoint[] yStrip = new XYPoint[yS.size()];
-    	yS.toArray(yStrip);
-    	
-  	
-    	// Now, store Closest Points Pairs in the global variables, and get the minDist
-    	double minDist = lrDist;
-    	for(int j=0; j<yStrip.length-1; j++) {
-    		int k = j+1;
-    		while(k<=yStrip.length-1 && yStrip[k].y-yStrip[j].y < lrDist) {
-    			double d = yStrip[j].dist(yStrip[k]);
-    			if(d < minDist){
-    				p1 = yStrip[j];
-        			p2 = yStrip[k];
-        			minDist = Math.min(minDist,d);	
-    			}
-    			
-    			k++;
-    		} 
-    		
-    	}
-    	
-    	
-    	
-    	return minDist;
-    }
-    
-    
+
+	public final static double INF = java.lang.Double.POSITIVE_INFINITY;
+
+	
+	//
+	// findClosestPair()
+	//
+	// Given a collection of nPoints points, find and ***print***
+	//  * the closest pair of points
+	//  * the distance between them
+	// in the form "(x1, y1) (x2, y2) distance"
+	//
+
+	// INPUTS:
+	//  - points sorted in nondecreasing order by X coordinate
+	//  - points sorted in nondecreasing order by Y coordinate
+	//
+
+	public static void findClosestPair(XYPoint pointsByX[], 
+			XYPoint pointsByY[], boolean print)
+	{	
+		XYPoint[] dcDist = ClosestPair(pointsByX, pointsByY);
+		System.out.println("DC "+dcDist[0]+" "+dcDist[1]+" "+dcDist[0].dist(dcDist[1]));
+
+		//ClosestPairNaive.findClosestPair(pointsByX);
+
+
+
+	}
+
+	//Return type as XYPoint[] so I can retrieve XY Coords
+	public static XYPoint[] ClosestPair(XYPoint pointsByX[], XYPoint pointsByY[]){
+		int nPoints = pointsByX.length;
+
+		int mid = nPoints/2;
+		XYPoint xL[] = new XYPoint[mid];
+		XYPoint xR[] = new XYPoint[nPoints-mid];
+		XYPoint yL[] = new XYPoint[mid];
+		XYPoint yR[] = new XYPoint[nPoints-mid];
+
+
+		if( nPoints == 1 ) {
+			XYPoint[] a = new XYPoint[2];
+			a[0] = pointsByX[0];
+			XYPoint dummy = new XYPoint(9999999, 9999999);
+			a[1] = dummy;
+			return a;
+		}
+		else if( nPoints == 2) {
+			XYPoint[] a = new XYPoint[2];
+			a[0] = pointsByX[0];
+			a[1] = pointsByX[1];
+			return a;
+		}
+		else {
+			for(int i=0; i< mid; i++) {
+				xL[i] = pointsByX[i];
+			}
+			for(int j=0; j<nPoints-mid; j++) {
+				xR[j] = pointsByX[j+mid];
+			}
+			//TODO: sort YL, YR in nondecreasing order
+			int count = 0;
+			for (int k = 0; k < nPoints; k++){
+				if (count < yL.length){
+					if (pointsByY[k].isLeftOf(pointsByX[mid])){
+						yL[count] = pointsByY[k];
+						count++;
+					}
+				}
+				else{
+					break;
+				}
+			}
+
+			count = 0;
+			for (int k = 0; k < nPoints; k++){
+				if (count < yR.length){
+					if (!pointsByY[k].isLeftOf(pointsByX[mid])){
+						yR[count] = pointsByY[k];
+						count++;
+					}
+				}
+				else{
+					break;
+				}
+			}
+
+			
+			
+		}
+
+		XYPoint[] aL = ClosestPair(xL, yL);
+		XYPoint[] aR = ClosestPair(xR, yR);
+		
+		double distL = aL[0].dist(aL[1]);
+		double distR = aR[0].dist(aR[1]);
+		
+		XYPoint[] lrPair = aL;
+		double lrDist = distL;
+		
+		if(distR < distL){
+			lrPair = aR;
+			lrDist = distR;
+		}
+
+		//call combine
+		XYPoint[] result = combine(pointsByY, pointsByX, lrDist, lrPair);
+
+		return result;
+	}
+
+	//Combine 
+	public static XYPoint[] combine(XYPoint ptsByY[], XYPoint pointsByX[], double lrDist, XYPoint[] lrPair) {
+		ArrayList<XYPoint>yStrip = new ArrayList<XYPoint>();
+		int mid = pointsByX.length/2;
+		int x = pointsByX[mid].x;
+		for(int i=0; i< ptsByY.length; i++) {
+			if(abs(x - ptsByY[i].x) <= lrDist) {
+				yStrip.add(ptsByY[i]);
+			}
+		}
+		double minDist = lrDist;
+		XYPoint[] minPair = lrPair;
+		for(int j=0; j<yStrip.size()-1; j++) {
+			int k = j+1;
+			while(k<=yStrip.size()-1 && yStrip.get(k).y - yStrip.get(j).y < lrDist) {
+				double d = yStrip.get(k).dist(yStrip.get(j));
+				if( d < minDist ) {
+					// Save the coords into minPair, and the minimum distance to minDist
+					minDist = d;
+					minPair[0] = yStrip.get(k);
+					minPair[1] = yStrip.get(j);	
+				}
+				k++;
+			}
+		}return minPair;
+	}
+
+
+	// Could use Math functions, but just wanted to make my own
+	static int abs(int x){
+		if( x< 0){
+			return -x;
+		}
+		else{
+			return x;
+		}
+	}
+	static double min(double a, double b) {
+		if(a< b) {
+			return a;
+		}
+		else {
+			return b;
+		}
+	}
+
 }
