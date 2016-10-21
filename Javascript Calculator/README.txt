@@ -1,7 +1,4 @@
 Calculator purely made in Javascript.
-
-Have two input fields and a radio button group for the operation, with the 4 basic math operations represented 
+Two input fields and a radio button group for the operators(4 basic math operators) 
 (add, subtract, multiply, divide)
-
-Monitor all three fields and display the current result whenever the user changes any value in any field, 
-without refreshing the page.
+Monitor all three fields and display the current result whenever the user changes any value in any field without refreshing the page.
