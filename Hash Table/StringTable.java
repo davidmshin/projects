@@ -11,11 +11,9 @@ public class StringTable {
     //
     // Create an empty table big enough to hold maxSize records.
     //
-	
-   
-	public int m;                //m is the size of the hash table
+	public int m;                // size of the hash table
 	public Record table[];
-    public int recordCounter;   //this is the number of records inserted
+    public int recordCounter;   // number of records inserted
 
 	
 	
@@ -44,7 +42,7 @@ public class StringTable {
     }
     
     
-    //Function for doubling the size of the hash table
+    //Double the size of the hash table
     public void hashDoubling(){
         
         //Create new table with doubled m(hash table size)

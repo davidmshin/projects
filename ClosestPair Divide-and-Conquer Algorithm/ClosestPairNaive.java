@@ -16,11 +16,7 @@ public class ClosestPairNaive {
     //  - points sorted in nondecreasing order by X coordinate
     //  - points sorted in nondecreasing order by Y coordinate
     //
-    
-   
-    
-    public static void findClosestPair(XYPoint points[], boolean print)
-    {
+    public static void findClosestPair(XYPoint points[], boolean print) {
     	double minDist = INF;
     	int nPoints = points.length;
     	int j = 0;
@@ -40,13 +36,9 @@ public class ClosestPairNaive {
     		}j++;
     	}
     	
-    	
-    if(print == true){	
-    	System.out.println("NAIVE ("+p1.x+", "+p1.y+") "+"("+p2.x+", "+p2.y+") "+minDist);
-    	
-    }
-	
-
+        if(print == true){	
+            System.out.println("NAIVE ("+p1.x+", "+p1.y+") "+"("+p2.x+", "+p2.y+") "+minDist);
+        }
     }
     
  

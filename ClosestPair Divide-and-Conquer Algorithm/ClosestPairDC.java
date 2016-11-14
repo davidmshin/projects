@@ -5,8 +5,6 @@ import java.util.ArrayList;
 public class ClosestPairDC {
 
 	public final static double INF = java.lang.Double.POSITIVE_INFINITY;
-
-	
 	//
 	// findClosestPair()
 	//
@@ -20,17 +18,9 @@ public class ClosestPairDC {
 	//  - points sorted in nondecreasing order by X coordinate
 	//  - points sorted in nondecreasing order by Y coordinate
 	//
-
-	public static void findClosestPair(XYPoint pointsByX[], 
-			XYPoint pointsByY[], boolean print)
-	{	
+	public static void findClosestPair(XYPoint pointsByX[], XYPoint pointsByY[], boolean print) {	
 		XYPoint[] dcDist = ClosestPair(pointsByX, pointsByY);
 		System.out.println("DC "+dcDist[0]+" "+dcDist[1]+" "+dcDist[0].dist(dcDist[1]));
-
-		//ClosestPairNaive.findClosestPair(pointsByX);
-
-
-
 	}
 
 	//Return type as XYPoint[] so I can retrieve XY Coords
@@ -50,14 +40,12 @@ public class ClosestPairDC {
 			XYPoint dummy = new XYPoint(9999999, 9999999);
 			a[1] = dummy;
 			return a;
-		}
-		else if( nPoints == 2) {
+		} else if( nPoints == 2) {
 			XYPoint[] a = new XYPoint[2];
 			a[0] = pointsByX[0];
 			a[1] = pointsByX[1];
 			return a;
-		}
-		else {
+		} else {
 			for(int i=0; i< mid; i++) {
 				xL[i] = pointsByX[i];
 			}
@@ -72,8 +60,7 @@ public class ClosestPairDC {
 						yL[count] = pointsByY[k];
 						count++;
 					}
-				}
-				else{
+				} else{
 					break;
 				}
 			}
@@ -85,14 +72,10 @@ public class ClosestPairDC {
 						yR[count] = pointsByY[k];
 						count++;
 					}
-				}
-				else{
+				} else{
 					break;
 				}
 			}
-
-			
-			
 		}
 
 		XYPoint[] aL = ClosestPair(xL, yL);
@@ -142,8 +125,7 @@ public class ClosestPairDC {
 		}return minPair;
 	}
 
-
-	// Could use Math functions, but just wanted to make my own
+	// Simple function finding absolute and min value
 	static int abs(int x){
 		if( x< 0){
 			return -x;

@@ -8,21 +8,15 @@
 
 import java.util.*;
 
-
-
-
 public class Record {
     public String key;
     public ArrayList<Integer> positions;
     public int intHashKey;
     public int pos;
     
-    public Record(String s)
-    {
-	key = s;
-	intHashKey = StringTable.toHashKey(s);
-	positions = new ArrayList<Integer>(1);
-			
-			
+    public Record(String s) {
+        key = s;
+	   intHashKey = StringTable.toHashKey(s);
+	   positions = new ArrayList<Integer>(1);
     }
 }

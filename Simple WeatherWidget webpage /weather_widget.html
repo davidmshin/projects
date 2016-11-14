@@ -6,45 +6,41 @@
 </head>
 
 <body>
-<div class="weather" id="weatherWidget">
-	<div class="weather-loc"></div>
-	<div class="weather-humidity"></div>
-	<div class="weather-temp"></div>
-	<img class="weather-tomorrow" src="#" alt="tomorrow" />
-	<img class="weather-dayaftertomorrow" src="#" alt="dayafter" />
-</div>
-
-<input type="button" id="submitBtn" value="Send" />
-
-<script type="text/javascript" >
+    <div class="weather" id="weatherWidget">
+        <div class="weather-loc"></div>
+        <div class="weather-humidity"></div>
+        <div class="weather-temp"></div>
+        <img class="weather-tomorrow" src="#" alt="tomorrow" />
+        <img class="weather-dayaftertomorrow" src="#" alt="dayafter" />
+    </div>
+    
+    <input type="button" id="submitBtn" value="Send" />
+    <script type="text/javascript" >
 	// The function retrives weather information with ajax request to the weather server
 	// The server outputs the current weather in JSON format, 
 	// Kindlt thanks Yahoo Weather for providing the up-to-date weather information.
-	function fetchWeather(){
-	 	var xmlHttp = new XMLHttpRequest();
-	 	xmlHttp.open("GET", "http://classes.engineering.wustl.edu/cse330/content/weather_json.php", true);
-	 	
-		xmlHttp.addEventListener("load", function(event){
+        function fetchWeather(){
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open("GET", "http://classes.engineering.wustl.edu/cse330/content/weather_json.php", true);
+            
+            xmlHttp.addEventListener("load", function(event){
+                var jsonData = JSON.parse(event.target.responseText); // parse the JSON into a JavaScript object
+	 		    //console.log(jsonData);
 
-	 		var jsonData = JSON.parse(event.target.responseText); // parse the JSON into a JavaScript object
-	 		console.log(jsonData);
+	 		    document.getElementsByClassName("weather-loc")[0].innerHTML = '<strong> '+ jsonData['location']['city'] + ' </strong>' + jsonData['location']['state'];
+	 		    document.getElementsByClassName("weather-humidity")[0].innerHTML = jsonData['atmosphere']['humidity'];
+	 		    document.getElementsByClassName("weather-temp")[0].innerHTML = jsonData['current']['temp'];
+	 		    document.getElementsByClassName("weather-temp")[0].innerHTML = jsonData['current']['temp'];
+	 		    document.getElementsByClassName("weather-tomorrow")[0].src = "http://us.yimg.com/i/us/nws/weather/gr/" + jsonData['tomorrow']['code'] + "ds.png";
+	 		    document.getElementsByClassName("weather-dayaftertomorrow")[0].src = "http://us.yimg.com/i/us/nws/weather/gr/" + jsonData['dayafter']['code'] +"ds.png";
+            }, false); // Bind the callback to the load event
+            xmlHttp.send(null);
+        }
 
-	 		document.getElementsByClassName("weather-loc")[0].innerHTML = '<strong> '+ jsonData['location']['city'] + ' </strong>' + jsonData['location']['state'];
-	 		document.getElementsByClassName("weather-humidity")[0].innerHTML = jsonData['atmosphere']['humidity'];
-	 		document.getElementsByClassName("weather-temp")[0].innerHTML = jsonData['current']['temp'];
-	 		document.getElementsByClassName("weather-temp")[0].innerHTML = jsonData['current']['temp'];
-	 		document.getElementsByClassName("weather-tomorrow")[0].src = "http://us.yimg.com/i/us/nws/weather/gr/" + jsonData['tomorrow']['code'] + "ds.png";
-	 		document.getElementsByClassName("weather-dayaftertomorrow")[0].src = "http://us.yimg.com/i/us/nws/weather/gr/" + jsonData['dayafter']['code'] +"ds.png";
-	 	}, false); // Bind the callback to the load event
-	 	xmlHttp.send(null);
-	}
-
-
-	// DOMContentLoaded event enables the weather widget to be automatically initialized when the page is loaded
- 	document.addEventListener("DOMContentLoaded", fetchWeather, false);
- 	// A button that runs my fetchWeather function when clicked, updating my widget with current weather conditions
- 	document.getElementById("submitBtn").addEventListener("click",fetchWeather, false);
-</script>
-</body>
-
+        // DOMContentLoaded event enables the weather widget to be automatically initialized when the page is loaded
+        document.addEventListener("DOMContentLoaded", fetchWeather, false);
+        // A button that runs my fetchWeather function when clicked, updating my widget with current weather conditions
+        document.getElementById("submitBtn").addEventListener("click",fetchWeather, false);
+    </script>
+    </body>
 </html>
