@@ -1,0 +1,21 @@
+$space-large: 2.5rem;
+$title-color: #0575E6;
+
+.page-title{
+  color: black;
+  margin-top: $space-large;
+  margin-bottom: $space-large;
+}
+
+.title-weather{
+  color: $title-color;
+}
+
+.weather-search{
+  width: 70%;
+  margin: 0 auto;
+}
+
+input[type=search] {
+  box-shadow: none;
+}

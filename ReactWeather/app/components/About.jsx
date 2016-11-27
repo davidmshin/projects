@@ -9,7 +9,7 @@ var About = React.createClass({
     return (
       <div style={content}>
         <h1 className="text-center page-title">About</h1>
-        <p>This is a weather application built on React. This project helped me to get familiarized with the framework</p>
+        <p>This is a weather application built on React. This project helped me to get familiarized with the framework.</p>
         <p>
           Here are some tools I used:
         </p>
