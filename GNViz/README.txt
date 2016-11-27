@@ -1,1 +1,1 @@
-My Code snippets as reference from GN-VIZ Data-Visualization project
+My GN-VIZ data visualization project code snippets as reference
