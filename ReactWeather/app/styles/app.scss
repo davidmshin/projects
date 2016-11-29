@@ -16,6 +16,10 @@ $title-color: #0575E6;
   margin: 0 auto;
 }
 
+#weather-warm {
+  background-image: url("/img/weather.jpg");
+}
+
 input[type=search] {
   box-shadow: none;
 }

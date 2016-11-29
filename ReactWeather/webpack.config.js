@@ -44,6 +44,20 @@ module.exports = {
         },
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif|woff)$/,
+        loader: 'url-loader',
+        query: {
+          // Inline images smaller than 10kb as data URIs
+          limit: 10000
+        },
+        exclude: /(node_modules|bower_components)/
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif|woff)$/,
+        loader: 'file-loader',
+        exclude: /(node_modules|bower_components)/
       }
     ]
   },

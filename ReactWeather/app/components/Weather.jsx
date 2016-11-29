@@ -53,11 +53,12 @@ var Weather = React.createClass({
   },
   render: function () {
     var {isLoading, temp, location, errorMessage} = this.state;
-
+    // var image = require('./img/weather.jpg')
     function renderMessage () {
       if (isLoading) {
         return <h3 className="text-center">Fetching weather...</h3>;
       } else if (temp && location) {
+        var imgUrl = '/app/img/weather.jpg';
         return <WeatherMessage temp={temp} location={location}/>;
       }
     }
@@ -70,8 +71,12 @@ var Weather = React.createClass({
       }
     }
 
+
+
+
     return (
-      <div className="text-center weather-search">
+
+      <div className="text-center weather-search" >
         <h1 className="page-title">Get <span className="page-title title-weather">Weather</span></h1>
         <WeatherForm onSearch={this.handleSearch}/>
         {renderMessage()}
